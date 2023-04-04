@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "48815d94-ee25-4e02-8478-af0a179e26be",
+		"name": "spring-debezium-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11939873"
+	},
+	"item": [
+		{
+			"name": "debezium",
+			"item": [
+				{
+					"name": "query-kafka-connect-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{KAFKA_CONNECT}}",
+							"host": [
+								"{{KAFKA_CONNECT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "query-connectors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{KAFKA_CONNECT}}/connectors",
+							"host": [
+								"{{KAFKA_CONNECT}}"
+							],
+							"path": [
+								"connectors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register-connector",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"product-connector\",\n    \"config\": {\n        \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\n        \"database.hostname\": \"db\",\n        \"database.port\": \"5432\",\n        \"database.user\": \"postgres\",\n        \"database.password\": \"postgres\",\n        \"database.dbname\": \"cdc\",\n        \"topic.prefix\": \"product\",\n        \"schema.history.internal.kafka.bootstrap.servers\": \"kafka:9092\",\n        \"schema.history.internal.kafka.topic\": \"schemahistory.product\",\n        \"table.include.list\": \"product_schema.product\",\n        \"plugin.name\": \"pgoutput\",\n        \"tombstones.on.delete\": \"false\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{KAFKA_CONNECT}}/connectors",
+							"host": [
+								"{{KAFKA_CONNECT}}"
+							],
+							"path": [
+								"connectors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "display-product-connector",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{KAFKA_CONNECT}}/connectors/product-connector",
+							"host": [
+								"{{KAFKA_CONNECT}}"
+							],
+							"path": [
+								"connectors",
+								"product-connector"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product-connector",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{KAFKA_CONNECT}}/connectors/product-connector",
+							"host": [
+								"{{KAFKA_CONNECT}}"
+							],
+							"path": [
+								"connectors",
+								"product-connector"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product-service",
+			"item": [
+				{
+					"name": "create-new-product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{PRODUCT_SERVICE}}/api/product",
+							"host": [
+								"{{PRODUCT_SERVICE}}"
+							],
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decrement-quantity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{PRODUCT_SERVICE}}/api/product/decrement-quantity/1",
+							"host": [
+								"{{PRODUCT_SERVICE}}"
+							],
+							"path": [
+								"api",
+								"product",
+								"decrement-quantity",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "KAFKA_CONNECT",
+			"value": "localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "PRODUCT_SERVICE",
+			"value": "localhost:8090",
+			"type": "string"
+		},
+		{
+			"key": "STOCK_SERVICE",
+			"value": "localhost:8091",
+			"type": "string"
+		}
+	]
+}

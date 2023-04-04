@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: default
+  datasource:
+    url: jdbc:postgresql://localhost:15432/cdc
+    username: stock_user
+    password: stock_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: stock-service-consumer
+      bootstrap-servers: localhost:9092
+server:
+  port: 8091

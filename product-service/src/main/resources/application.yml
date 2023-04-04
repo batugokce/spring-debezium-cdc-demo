@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: default
+  datasource:
+    url: jdbc:postgresql://localhost:15432/cdc
+    username: product_user
+    password: product_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 8090
