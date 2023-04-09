@@ -40,19 +40,6 @@ services:
       - kafka
     restart: always
 
-  kafka-manager:
-    image: hlebalbau/kafka-manager
-    container_name: kafka-manager
-    ports:
-      - "9000:9000"
-    environment:
-      - ZK_HOSTS=zookeeper:2181
-      - APPLICATION_SECRET=letmein
-    depends_on:
-      - zookeeper
-      - kafka
-    restart: always
-
   db:
     image: postgres:14.1-alpine
     restart: always
