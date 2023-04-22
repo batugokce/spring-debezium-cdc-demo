@@ -1,5 +1,6 @@
 package dev.batugokce.cdc.productservice.product.controller;
 
+import dev.batugokce.cdc.productservice.product.controller.dto.CreateProductResponseDTO;
 import dev.batugokce.cdc.productservice.product.entity.ProductFactory;
 import dev.batugokce.cdc.productservice.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,10 @@ public class ProductController {
     private final ProductRepository repository;
 
     @PostMapping
-    public void createNewProduct() {
+    public CreateProductResponseDTO createNewProduct() {
         var product = ProductFactory.generateRandomProduct();
         repository.save(product);
+        return new CreateProductResponseDTO(product.getId(), product.getName(), product.getQuantityLeft());
     }
 
     @PostMapping("/decrement-quantity/{id}")

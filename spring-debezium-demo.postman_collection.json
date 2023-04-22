@@ -29,10 +29,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{KAFKA_CONNECT}}/connectors",
+							"raw": "localhost:8083/connectors",
 							"host": [
-								"{{KAFKA_CONNECT}}"
+								"localhost"
 							],
+							"port": "8083",
 							"path": [
 								"connectors"
 							]
@@ -47,7 +48,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"product-connector\",\n    \"config\": {\n        \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\n        \"database.hostname\": \"db\",\n        \"database.port\": \"5432\",\n        \"database.user\": \"postgres\",\n        \"database.password\": \"postgres\",\n        \"database.dbname\": \"cdc\",\n        \"topic.prefix\": \"product\",\n        \"schema.history.internal.kafka.bootstrap.servers\": \"kafka:9092\",\n        \"schema.history.internal.kafka.topic\": \"schemahistory.product\",\n        \"table.include.list\": \"product_schema.product\",\n        \"plugin.name\": \"pgoutput\",\n        \"tombstones.on.delete\": \"false\"\n    }\n}",
+							"raw": "{\n    \"name\": \"product-connector\",\n    \"config\": {\n        \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\n        \"database.hostname\": \"db\",\n        \"database.port\": \"5432\",\n        \"database.user\": \"postgres\",\n        \"database.password\": \"postgres\",\n        \"database.dbname\": \"cdc\",\n        \"topic.prefix\": \"product\",\n        \"schema.history.internal.kafka.bootstrap.servers\": \"kafka:9093\",\n        \"schema.history.internal.kafka.topic\": \"schemahistory.product\",\n        \"table.include.list\": \"product_schema.product\",\n        \"column.include.list\": \"product_schema.product.id,product_schema.product.quantity_left\",\n        \"plugin.name\": \"pgoutput\",\n        \"tombstones.on.delete\": \"false\"\n    }\n}\n\n\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,10 +56,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{KAFKA_CONNECT}}/connectors",
+							"raw": "localhost:8083/connectors",
 							"host": [
-								"{{KAFKA_CONNECT}}"
+								"localhost"
 							],
+							"port": "8083",
 							"path": [
 								"connectors"
 							]
